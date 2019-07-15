@@ -1,6 +1,6 @@
-# hiplay_store
+# nuxt-element-admin
 
-> 嗨玩商家中心
+> nuxt-element-admin
 
 ## Build Setup
 
@@ -19,4 +19,8 @@ $ npm start
 $ npm run generate
 ```
 
-For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).
+[Nuxt.js docs](https://nuxtjs.org)
+
+[Element docs](https://element.eleme.cn)
+
+[Tailwind css docs](https://tailwindcss.com/docs)
