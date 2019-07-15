@@ -1,0 +1,15 @@
+/*.impowerBox .qrcode {width: 324px;}*/
+.impowerBox .title {display: none;}
+.impowerBox .qrcode{
+  /*margin-top: 0;*/
+}
+.impowerBox .info {}
+.old-template #wx_default_tip p:last-child, .old-template #wx_default_tip p:first-child{
+  display: none;
+}
+
+.old-template #wx_default_tip::after{
+  content: "扫码进入商户管理中心";
+}
+/*.status_icon {display: none}*/
+/*.impowerBox .status {text-align: center;}*/
