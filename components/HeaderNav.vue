@@ -2,20 +2,34 @@
   <div class="header-nav flex justify-start items-center">
     <div class="divider"></div>
     <div class="nav-group flex justify-start items-center">
-      <template v-for="item in tabs">
-        <el-dropdown :show-timeout="0" placement="bottom">
-          <div class="nav-item" :class="{active: current === item.key}" @click="toPage(item)">
-            <i class="iconfont" :class="item.icon"></i>
-            <span>{{ item.name }}</span>
-            <i class="el-icon-arrow-down el-icon--right"></i>
+      <template v-for="tab in tabs">
+        <!-- 有子菜单 -->
+        <template v-if="tab.submenu">
+          <el-dropdown :show-timeout="0" placement="bottom" @command="clickDropDownTab">
+            <div class="nav-item" :class="{active: current.currentTab === tab.key}">
+              <i class="iconfont" :class="tab.icon"></i>
+              <span>{{ tab.name }}</span>
+              <i class="el-icon-arrow-down el-icon--right"></i>
+            </div>
+            <el-dropdown-menu slot="dropdown">
+              <template v-for="submenu in tab.submenu">
+                <el-dropdown-item :command="{tab, submenu}">
+                  <div :class="{active: current.currentSubmenu && current.currentSubmenu.key === submenu.key}">
+                    <i class="iconfont" :class="submenu.icon"></i>
+                    <span>{{ submenu.name }}</span>
+                  </div>
+                </el-dropdown-item>
+              </template>
+            </el-dropdown-menu>
+          </el-dropdown>
+        </template>
+        <!-- 无子菜单 -->
+        <template v-else>
+          <div class="nav-item" :class="{active: current.currentTab === tab.key}" @click="toPage(tab)">
+            <i class="iconfont" :class="tab.icon"></i>
+            <span>{{ tab.name }}</span>
           </div>
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item icon="el-icon-s-open" command="logout">退出</el-dropdown-item>
-            <el-dropdown-item icon="el-icon-s-open" command="logout">退出</el-dropdown-item>
-            <el-dropdown-item icon="el-icon-s-open" command="logout">退出</el-dropdown-item>
-            <el-dropdown-item icon="el-icon-s-open" command="logout">退出</el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
+        </template>
       </template>
     </div>
     <div class="divider"></div>
@@ -31,8 +45,20 @@
   export default {
     name: "HeaderNav",
     props: {
-      tabs: Array,
-      current: String,
+      tabs: {
+        type: Array,
+        required: true
+      },
+      current: {
+        type: Object,
+        default: function () {
+          return {
+            currentTab: null,
+            currentSubmenu: {},
+            currentName: null
+          }
+        }
+      },
     },
 
     data() {
@@ -40,10 +66,14 @@
     },
 
     methods: {
+      clickDropDownTab(command) {
+        this.$router.push({name: command.submenu.key})
+        this.$emit('change-route', {tab: command.tab, sub: command.submenu})
+      },
+
       toPage(route) {
         this.$router.push({name: route.key})
-        this.$emit('change-nav', route)
-        // this.setRoute(route)
+        this.$emit('change-route', {tab: route, sub: null})
       },
 
       needHelp() {
@@ -54,7 +84,8 @@
 </script>
 
 <style scoped lang="scss">
-  .el-dropdown-menu__item:focus, .el-dropdown-menu__item:not(.is-disabled):hover{
+  .active {
+    color: #66b1ff !important;
   }
 
   .nav-group .el-dropdown, .nav-group .nav-item {
@@ -87,10 +118,7 @@
 
         & > span {
           vertical-align: middle;
-        }
-
-        &.active {
-          color: #66b1ff;
+          font-size: 1rem !important;
         }
 
         &:hover {

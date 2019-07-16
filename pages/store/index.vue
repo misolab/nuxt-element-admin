@@ -1,6 +1,6 @@
 <template>
   <div>
-    store
+    门店
   </div>
 </template>
 

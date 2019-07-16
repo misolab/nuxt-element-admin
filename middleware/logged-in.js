@@ -1,5 +1,5 @@
 export default function ({app, route, redirect}) {
-  let isLogged = Boolean(app.$cookies.get('logged-uuid')) && Boolean(app.$cookies.get('mc-logged-in'))
+  let isLogged = Boolean(app.$cookies.get('mc-login-success')) && Boolean(app.$cookies.get('mc-login-id'))
 
   //已登录访问登录页, 跳转到首页
   if (route.name === 'login' && isLogged) {

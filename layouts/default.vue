@@ -6,16 +6,13 @@
           <div class="logo">
             <img src="https://cdn.hiplaylife.com/console/assets/img/logo-yellow.png" alt="">
           </div>
-          <HeaderNav :tabs="tabs" :current="route.currentTab" @change-nav="headerNavChange"></HeaderNav>
+          <HeaderNav :tabs="tabs" :current="route" @change-route="routeChange"></HeaderNav>
         </div>
         <div class="flex justify-start items-center">
           <Profile></Profile>
         </div>
       </div>
-      <div class="main flex flex-col justify-start items-stretch overflow-hidden">
-        <div class="sidebar">
-          <Sidebar :submenu="route.currentSubmenu" :name="route.currentName"></Sidebar>
-        </div>
+      <div class="main">
         <div class="relative p-5" ref="mainBox">
           <nuxt></nuxt>
         </div>
@@ -26,60 +23,48 @@
 
 <script>
   import Auth from './../utils/auth'
+  import Tabs from './../utils/tabs'
   import Sidebar from './../components/page/Sidebar'
   import HeaderNav from './../components/HeaderNav'
   import Profile from './../components/HeaderProfile'
 
   export default {
-    components: {Sidebar, HeaderNav, Profile},
+    components: {HeaderNav, Profile},
 
     data() {
       return {
-        mainBoxHeight: 0,
-
-        tabs: [
-          {key: 'index', 'name': '首页', icon: 'icon-shouye', submenu: false},
-          {key: 'goods', 'name': '商品', icon: 'icon-paihangbang', submenu: []},
-          {key: 'order', 'name': '订单', icon: 'icon-dingdan'},
-          {key: 'comment', 'name': '评价', icon: 'icon-huati'},
-          {
-            key: 'store', 'name': '门店', icon: 'icon-shangquan',
-            submenu: [
-              {key: 'store', 'name': '门店列表', icon: 'icon-shangquan'},
-              {key: 'store-staff', 'name': '人员列表', icon: 'icon-shangquan'}
-            ]
-          },
-          {key: 'finance', 'name': '财务', icon: 'icon-yulebao'},
-          {key: 'setting', 'name': '设置', icon: 'icon-shezhi'},
-        ],
-        route: {
-          currentTab: 'index',
-          currentSubmenu: false,
-          currentName: '',
-        },
+        tabs: Tabs,
+        route: {currentTab: 'index', currentSubmenu: null, currentName: null},
       }
     },
 
     created() {
-      let currentName = this.$route.name.split('-')
+      let tabName = this.$route.name.split('-')
+      // console.log(tabName, this.$route.name)
 
-      this.setRoute(this.tabs.find(item => {
-        return item.key === currentName[0]
-      }))
+      let tab = this.tabs.find(item => {
+        return item.key === tabName[0]
+      })
+
+      let submenu = tabName.length === 1 ? null : tab.submenu.find(item => {
+        return item.key === this.$route.name
+      })
+
+      this.setRoute(tab, submenu)
     },
 
     mounted() {
     },
 
     methods: {
-      headerNavChange(e) {
-        this.setRoute(e)
+      routeChange(e) {
+        this.setRoute(e.tab, e.sub)
       },
 
-      setRoute(route) {
-        this.route.currentTab = route.key
-        this.route.currentSubmenu = route.submenu
-        this.route.currentName = route.name
+      setRoute(tab, submenu) {
+        this.route.currentTab = tab.key
+        this.route.currentSubmenu = submenu
+        this.route.currentName = tab.name
       },
     }
   }
