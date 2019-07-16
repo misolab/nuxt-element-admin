@@ -24,7 +24,7 @@
 <script>
   import Auth from './../utils/auth'
   import Tabs from './../utils/tabs'
-  import Sidebar from './../components/page/Sidebar'
+
   import HeaderNav from './../components/HeaderNav'
   import Profile from './../components/HeaderProfile'
 

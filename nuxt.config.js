@@ -19,7 +19,11 @@ export default {
     ],
     link: [
       {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'},
-      {rel: 'stylesheet', type: 'text/css', href: '//at.alicdn.com/t/font_1255678_i4h9bit3pi7.css'}
+      {
+        rel: 'stylesheet',
+        type: 'text/css',
+        href: '//at.alicdn.com/t/font_1255678_i4h9bit3pi7.css'
+      }
     ]
   },
 
@@ -48,7 +52,8 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '@/plugins/element-ui'
+    '@/plugins/element-ui',
+    '@/plugins/body-component'
   ],
   /*
   ** Nuxt.js modules

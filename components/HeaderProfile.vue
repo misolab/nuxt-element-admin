@@ -24,7 +24,7 @@
     name: "HeaderProfile",
     data() {
       return {
-        unreadNotices: 12,
+        unreadNotices: null,
         dropdownVisible: false,
       }
     },
