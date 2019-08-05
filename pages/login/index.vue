@@ -1,22 +1,17 @@
 <template>
   <div>
-    <script @load="wxJsLoad" :src="wxJsUrl"></script>
+    <script @load="jsLoad" :src="dingJsUrl"></script>
     <div class="login-container">
       <div class="flex">
         <div class="w-1/2">
           <div class="section">
-            <div class="">
-              <h3 style="color: #303133; font-size: 20px;">嗨玩</h3>
-              <h4 style="color: #909399; font-size: 16px;">领先的本地互联网生活服务平台</h4>
+            <div class="text-center">
+              <h4 style="color: #909399; font-size: 16px;" class="pt-4">欢迎访问控制中心</h4>
             </div>
             <div>
               <div id="login-qr" class="login-qr flex items-center justify-center">
               </div>
             </div>
-            <el-button-group style="width: 100%;">
-              <el-button size="small" class="w-1/2">免费入住</el-button>
-              <el-button size="small" class="w-1/2">联系客服</el-button>
-            </el-button-group>
           </div>
 
         </div>
@@ -26,7 +21,7 @@
       </div>
     </div>
     <footer>
-      &copy; 嗨玩 2019
+      <Copyright></Copyright>
     </footer>
   </div>
 </template>
@@ -37,26 +32,37 @@
     layout: 'auth-login',
     head() {
       return {
-        title: '登录嗨玩商户管理中心'
+        title: '登录控制中心'
       }
     },
-    computed: {
-      wxJsUrl() {
-        return `http${process.env.isLocal ? '' : 's'}://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js`
-      },
+    data() {
+      return {
+        dingJsUrl: '//g.alicdn.com/dingding/dinglogin/0.0.5/ddLogin.js',
+      }
     },
+    computed: {},
     methods: {
-      wxJsLoad(e) {
-        let login = new WxLogin({
-          self_redirect: true,
+      jsLoad(e) {
+        let login = DDLogin({
           id: "login-qr",
-          appid: "wx85af5dd8c39af771",
-          scope: "snsapi_login",
-          redirect_uri: encodeURIComponent(`http${process.env.isLocal ? '' : 's'}://www.hiplaylife.com/auth/open-wechat?source=m_login`),
-          state: Date.now(),
-          style: "",
-          href: `${process.env.isLocal ? 'http://localhost:3000' : window.location.href}/style/wxlogin.css`
+          goto: encodeURIComponent(`https://oapi.dingtalk.com/connect/oauth2/sns_authorize?appid=dingoanbaoiqyaoegblqir&response_type=code&scope=snsapi_login&state=${Date.now()}&redirect_uri=http://best-dev.antapis.com/oauth/ding-login`),
+          style: "border:none;background-color:transparent;",
+          width: "300",
+          height: "300"
         })
+
+        if (typeof window.addEventListener != 'undefined') {
+          window.addEventListener('message', this.handleMessage, false)
+        } else if (typeof window.attachEvent != 'undefined') {
+          window.attachEvent('onmessage', this.handleMessage)
+        }
+      },
+
+      handleMessage() {
+        let origin = event.origin;
+        if (origin == "https://login.dingtalk.com") {
+          let loginTmpCode = event.data
+        }
       },
     },
   }

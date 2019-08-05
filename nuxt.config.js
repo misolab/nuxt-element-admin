@@ -7,7 +7,7 @@ export default {
   ** Headers of the page
   */
   head: {
-    title: '嗨玩商户管理平台',
+    title: '兴义市公安局交通警察大队停车场信息管理中心',
     meta: [
       {charset: 'utf-8'},
       {name: 'viewport', content: 'width=device-width, initial-scale=1'},
@@ -53,7 +53,7 @@ export default {
   */
   plugins: [
     '@/plugins/element-ui',
-    '@/plugins/body-component'
+    '@/plugins/global-component'
   ],
   /*
   ** Nuxt.js modules
