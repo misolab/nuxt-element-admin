@@ -1,12 +1,65 @@
 html, body {
-  font-family: Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,SimSun,sans-serif;
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, SimSun, sans-serif;
   font-weight: 400;
-  /*font-family: -apple-system, source-sans-pro, helvetica, SYHT, Avenir Next, Avenir, Microsoft YaHei, Helvetica Neue, Helvetica, Lantinghei SC, Hiragino Sans GB, STHeiti, WenQuanYi Micro Hei, SimSun, arial, sans-serif;*/
-  background: #EFF2F6;
+  background: #f0f2f5;
 }
 
-.el-badge__content{
-  top: 0;
-  vertical-align: text-bottom;
-  box-sizing: content-box !important;
+
+.el-menu {
+  background-color: #001529;
+  border: none;
 }
+
+.el-menu .el-menu {
+  background: #000c17;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, .45);
+}
+
+.el-submenu.is-opened .el-submenu__title {
+  color: #ffffff;
+}
+
+.el-submenu__title:hover {
+  background-color: transparent;
+  color: #ffffff;
+}
+
+
+.el-menu-item:focus, .el-menu-item:hover {
+  background: none;
+}
+
+.el-menu-item, .el-submenu__title {
+  color: rgba(255, 255, 255, 0.65)
+}
+
+.el-menu-item:hover, .el-submenu__title:hover {
+  color: #ffffff;
+}
+
+.el-menu-item:hover {
+  background: transparent;
+}
+
+.el-menu-item.is-disabled, .el-menu-item .is-disabled {
+  opacity: 0.6;
+}
+
+.el-menu-item .is-active, .el-menu-item.is-active {
+  color: #ffffff;
+  background: #1890FF;
+}
+
+.el-menu--popup {
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.el-menu--collapse .el-submenu, .el-menu--collapse .el-menu-item {
+  text-align: center;
+}
+
+/*.el-menu--popup .el-menu-item{*/
+/*  height: 40px;*/
+/*  line-height: 40px;*/
+/*}*/

@@ -1,27 +1,27 @@
 {
-  "name": "hiplay_store",
-  "version": "1.0.0",
-  "description": "嗨玩商家中心",
-  "author": "龙权",
-  "private": true,
-  "scripts": {
-    "dev": "nuxt",
-    "build": "nuxt build",
-    "start": "nuxt start",
-    "generate": "nuxt generate"
-  },
-  "dependencies": {
-    "@nuxtjs/axios": "^5.5.4",
-    "animate.css": "^3.7.2",
-    "cookie-universal-nuxt": "^2.0.16",
-    "element-ui": "^2.10.1",
-    "nuxt": "^2.0.0"
-  },
-  "devDependencies": {
-    "node-sass": "^4.12.0",
-    "nodemon": "^1.18.9",
-    "sass-loader": "^7.1.0",
-    "scss-loader": "0.0.1",
-    "tailwindcss": "^1.0.4"
-  }
+    "name": "ant_console_init",
+    "version": "1.0.0",
+    "description": "ant console template",
+    "author": "龙权",
+    "private": true,
+    "scripts": {
+        "dev": "nuxt",
+        "build": "nuxt build",
+        "start": "nuxt start",
+        "generate": "nuxt generate"
+    },
+    "dependencies": {
+        "@nuxtjs/axios": "^5.5.4",
+        "animate.css": "^3.7.2",
+        "cookie-universal-nuxt": "^2.0.16",
+        "element-ui": "^2.10.1",
+        "nuxt": "^2.0.0"
+    },
+    "devDependencies": {
+        "node-sass": "^4.12.0",
+        "nodemon": "^1.18.9",
+        "sass-loader": "^7.1.0",
+        "scss-loader": "0.0.1",
+        "tailwindcss": "^1.1.2"
+    }
 }

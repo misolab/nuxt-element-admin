@@ -1,7 +1,10 @@
 <template>
   <el-card>
     <div slot="header" class="flex flex-row justify-between items-center">
-      <div class="text-xl"><slot name="title"></slot></div>
+      <div>
+        <span v-if="!$slots.title">{{ title }}</span>
+        <slot name="title"></slot>
+      </div>
       <div>
         <slot name="action"></slot>
       </div>
@@ -14,7 +17,13 @@
 
 <script>
   export default {
-    name: "BodyContainer"
+    name: "BodyContainer",
+    props: {
+      title: String
+    },
+
+    mounted() {
+    }
   }
 </script>
 

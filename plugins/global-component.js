@@ -1,6 +1,4 @@
 import Vue from 'vue'
-import Body from './../components/page/BodyContainer'
-import Copyright from './../components/Copyright'
 
-Vue.component('Body', Body)
-Vue.component('Copyright', Copyright)
+const files = require.context('~/components', false, /\.vue$/i)
+files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))

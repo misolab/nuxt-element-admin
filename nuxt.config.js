@@ -1,16 +1,13 @@
 export default {
   mode: 'spa',
-  env: {
-    isLocal: process.env.NODE_ENV === 'development' ? true : false
-  },
   /*
   ** Headers of the page
   */
   head: {
-    title: '兴义市公安局交通警察大队停车场信息管理中心',
+    title: '共需宝管理中心',
     meta: [
-      {charset: 'utf-8'},
-      {name: 'viewport', content: 'width=device-width, initial-scale=1'},
+      { charset: 'utf-8' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       {
         hid: 'description',
         name: 'description',
@@ -18,7 +15,7 @@ export default {
       }
     ],
     link: [
-      {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'},
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       {
         rel: 'stylesheet',
         type: 'text/css',
@@ -28,7 +25,7 @@ export default {
   },
 
   router: {
-    middleware: 'logged-in',
+    // middleware: 'logged-in',
   },
   /*
   ** Customize the progress-bar color
@@ -52,8 +49,8 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '@/plugins/element-ui',
-    '@/plugins/global-component'
+    '~/plugins/element-ui',
+    '~/plugins/global-component'
   ],
   /*
   ** Nuxt.js modules

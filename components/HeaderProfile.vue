@@ -1,21 +1,27 @@
 <template>
-  <div class="profile">
-    <el-dropdown :show-timeout="0" @visible-change="dropdownVisibleChange" @command="clickDropdownItem">
-      <el-badge is-dot :hidden="!unreadNotices">
-        <img class="avatar infinite bounceIn" :class="{ 'animated' : reminder}" src="https://wx.qlogo.cn/mmopen/vi_32/P1G5IYWTc7XqWZuxTqZFaLjO5ev4WFLXiaqTet0fkOVI3Il75smd5x3ibqKr959DT4A3LRHibwtoS9uibrpfibacApA/132"/>
+  <div class="flex flex-row items-center head-profile">
+    <div class="item" role="button">
+      <i class="iconfont icon-bangzhu"></i>
+    </div>
+    <div class="item" role="button">
+      <el-badge :value="12">
+        <i class="el-icon-message"></i>
       </el-badge>
+    </div>
+    <div class="item">
+      <el-dropdown :show-timeout="0" @command="clickDropdownItem">
+        <div>
+          <img class="avatar" src="https://wx.qlogo.cn/mmopen/vi_32/P1G5IYWTc7XqWZuxTqZFaLjO5ev4WFLXiaqTet0fkOVI3Il75smd5x3ibqKr959DT4A3LRHibwtoS9uibrpfibacApA/132"/>
+        </div>
 
-      <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item icon="el-icon-bell" class="clearfix" command="notices">
-          通知
-          <el-badge class="mark" :max="9" :value="unreadNotices"></el-badge>
-        </el-dropdown-item>
-        <el-dropdown-item icon="el-icon-circle-plus" divided>狮子头</el-dropdown-item>
-        <el-dropdown-item icon="el-icon-circle-plus-outline">螺蛳粉</el-dropdown-item>
-        <el-dropdown-item icon="el-icon-check">资料</el-dropdown-item>
-        <el-dropdown-item icon="el-icon-s-open" command="logout" divided>退出</el-dropdown-item>
-      </el-dropdown-menu>
-    </el-dropdown>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item icon="el-icon-circle-plus-outline">螺蛳粉</el-dropdown-item>
+          <el-dropdown-item icon="el-icon-circle-plus" divided>狮子头</el-dropdown-item>
+          <el-dropdown-item icon="el-icon-check">资料</el-dropdown-item>
+          <el-dropdown-item icon="el-icon-s-open" command="logout" divided>退出</el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+    </div>
   </div>
 </template>
 
@@ -23,23 +29,10 @@
   export default {
     name: "HeaderProfile",
     data() {
-      return {
-        unreadNotices: null,
-        dropdownVisible: false,
-      }
-    },
-
-    computed: {
-      reminder() {
-        return this.unreadNotices && (!this.dropdownVisible)
-      },
+      return {}
     },
 
     methods: {
-      dropdownVisibleChange(visible) {
-        this.dropdownVisible = visible
-      },
-
       clickDropdownItem(command) {
         switch (command) {
           case 'logout':
@@ -51,19 +44,30 @@
 </script>
 
 <style scoped lang="scss">
-  .profile {
-    padding: 0 10px;
+  .el-icon-message, .iconfont {
+    font-size: 24px;
+  }
 
-    .avatar {
-      display: block;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      overflow: hidden;
+  .head-profile {
+    padding-right: 10px;
+
+    .item {
+      padding: 0 15px;
+      height: 64px;
+      display: flex;
+      align-items: center;
 
       &:hover {
-        animation-play-state: paused;
+        background: rgba(0, 0, 0, 0.05);
       }
     }
+  }
+
+  .avatar {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
   }
 </style>
