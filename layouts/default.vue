@@ -8,9 +8,6 @@
     <section class="layout layout-main" :style="{ paddingLeft: collapseAside ? '80px' : '256px'  }">
       <div class="layout-header flex justify-between items-center text-gray-600">
         <div class="flex justify-start items-center">
-          <!--          <div class="logo">-->
-          <!--            <img src="~/assets/images/logo-yellow.png" alt="">-->
-          <!--          </div>-->
           <div class="collapse-btn" @click="()=>this.collapseAside = !this.collapseAside">
             <i class="el-icon-s-fold"></i>
           </div>
@@ -18,13 +15,12 @@
         <header-profile></header-profile>
       </div>
       <div class="relative" ref="mainBox" style="padding: 20px">
-        <transition name="el-fade-in">
-          <nuxt></nuxt>
-        </transition>
+        <nuxt v-if="isRouterAlive"></nuxt>
       </div>
 
       <copyright></copyright>
     </section>
+    <el-backtop></el-backtop>
   </section>
 </template>
 
@@ -33,7 +29,14 @@
   export default {
     data() {
       return {
+        isRouterAlive: true,
         collapseAside: false
+      }
+    },
+
+    provide() {
+      return {
+        reloadPage: this.reloadPage
       }
     },
 
@@ -44,7 +47,14 @@
     mounted() {
     },
 
-    methods: {}
+    methods: {
+      reloadPage() {
+        this.isRouterAlive = false
+        this.$nextTick(function () {
+          this.isRouterAlive = true
+        })
+      }
+    }
   }
 </script>
 

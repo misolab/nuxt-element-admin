@@ -4,7 +4,7 @@ html, body {
   background: #f0f2f5;
 }
 
-
+/* 重写 element menu 组件样式 */
 .el-menu {
   background-color: #001529;
   border: none;
@@ -59,7 +59,23 @@ html, body {
   text-align: center;
 }
 
+.el-card__header {
+  padding: 10px 20px;
+}
+
 /*.el-menu--popup .el-menu-item{*/
 /*  height: 40px;*/
 /*  line-height: 40px;*/
 /*}*/
+
+.el-dialog__body{
+  padding: 20px;
+}
+
+.el-loading-spinner svg{
+  display: inline-block!important;
+}
+
+.el-button:focus, .el-button:hover{
+  outline: none;
+}

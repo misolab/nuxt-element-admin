@@ -30,10 +30,7 @@ export default {
   /*
   ** Customize the progress-bar color
   */
-  loading: {
-    color: '#19be6b',
-    height: '5px'
-  },
+  loading: false,
   /*
   ** Global CSS
   */
@@ -50,14 +47,27 @@ export default {
   */
   plugins: [
     '~/plugins/element-ui',
-    '~/plugins/global-component'
+    '~/plugins/global-component',
+    '~/plugins/axios'
   ],
   /*
   ** Nuxt.js modules
   */
   modules: [
     'cookie-universal-nuxt',
+    '@nuxtjs/axios',
   ],
+
+  axios: {
+    baseURL: 'http://0.0.0.0:8000/console-api',
+    https: false,
+    debug: true,
+  },
+
+  transition: {
+    name: 'el-fade-in-linear',
+    mode: 'out-in',
+  },
   /*
   ** Build configuration
   */

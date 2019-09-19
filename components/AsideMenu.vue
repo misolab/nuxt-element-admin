@@ -1,25 +1,38 @@
 <template>
   <div>
-    <el-menu class="menu-vertical" @select="selectMenu" @close="handleClose" :collapse="collapse" router>
+    <el-menu class="menu-vertical"
+        router
+        @select="selectMenu"
+        @close="handleClose"
+        :collapse="collapse"
+        :default-active="activeRoute">
       <template v-for="menu in menus">
-        <el-menu-item :index="menu.key" :route="{path: menu.path}">
+        <el-menu-item
+            :index="menu.key"
+            :route="{path: menu.path}"
+            v-if="menu.children == false"
+            :key="menu.key"
+        >
           <i class="icon" :class="menu.icon"></i>
           <span slot="title">{{ menu.name }}</span>
         </el-menu-item>
-      </template>
 
-      <!--      <el-submenu index="1">-->
-      <!--        <template slot="title">-->
-      <!--          <i class="icon el-icon-s-home"></i>-->
-      <!--          <span slot="title">首页</span>-->
-      <!--        </template>-->
-      <!--        <el-menu-item index="1-1">选项1</el-menu-item>-->
-      <!--        <el-menu-item index="1-2">选项2</el-menu-item>-->
-      <!--        <el-submenu index="1-4">-->
-      <!--          <span slot="title">选项4</span>-->
-      <!--          <el-menu-item index="1-4-1">选项1</el-menu-item>-->
-      <!--        </el-submenu>-->
-      <!--      </el-submenu>-->
+        <el-submenu :index="menu.key" v-else>
+          <template slot="title">
+            <i class="icon" :class="menu.icon"></i>
+            <span slot="title">{{ menu.name }}</span>
+          </template>
+          <el-menu-item
+              v-for="subMenu in menu.children"
+              :index="subMenu.key"
+              :route="{ path: subMenu.path }"
+              :key="subMenu.key"
+          >
+            <span>{{ subMenu.name }}</span>
+          </el-menu-item>
+        </el-submenu>
+
+      </template>
     </el-menu>
   </div>
 </template>
@@ -51,15 +64,50 @@
     props: [
       'collapse'
     ],
+
     data() {
       return {
+        activeRoute: 'index',
         menus: Menu
       };
     },
+
+    created() {
+      this.activeRoute = this.parseRoute(this.$route.path)
+    },
+
+    watch: {
+      '$route'(newVal, oldVal) {
+        console.log(newVal)
+        this.activeRoute = this.parseRoute(newVal.path)
+      }
+    },
+
     methods: {
-      selectMenu(key, keyPath) {
-        console.log(key, keyPath);
+      parseRoute(fullPath) {
+        if (fullPath == '/') {
+          return 'index'
+        }
+        let segmentation = fullPath.split('/')
+        if (segmentation[0] === '') {
+          segmentation.shift()
+        }
+
+        if (segmentation.length < 2) {
+          return segmentation[0]
+        }
+
+        let res = segmentation.filter(item => {
+          return !(/^\d+$/.test(item))
+        })
+
+        return res.join('-')
       },
+
+      selectMenu(key, keyPath) {
+        console.log('selectMenu', key, keyPath);
+      },
+
       handleClose(key, keyPath) {
         console.log(key, keyPath);
       }
